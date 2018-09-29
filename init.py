@@ -22,7 +22,7 @@ pygame.display.set_caption("HatHome")
 # Set Music
 pygame.mixer.music.load("Assets\Music\music.mp3")
 pygame.mixer.music.play(-1)
-pygame.mixer.music.set_volume(0)
+pygame.mixer.music.set_volume(4)
 
 # Tick Init
 clock = pygame.time.Clock()
@@ -35,3 +35,4 @@ centerp = tools.convert_coord(800, 450)
 home = Player(10, 5, spriteplayer[0], spriteplayer, centerp[0]-78,centerp[1]-34)
 background = Entity(background, p, 0, 200, False)
 bugman = Entity(spritebuggman[0], spritebuggman, 700, 450, True)
+bugman2 = Entity(spritebuggman[0], spritebuggman, 750, 300, True)

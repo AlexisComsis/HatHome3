@@ -1,6 +1,7 @@
 from init import *
 from entity import *
 from player import *
+from copy import *
 # Main loop
 run = True
 while run:
@@ -25,21 +26,25 @@ while run:
 
     #be
     background.be(window)
+
+
     listt = []
+    temporary = []
     for object in Entity.list_object_phys:
-        listt.append(object.y)
+        listt.append(int(object.y))
 
     listt.append(home.y)
     listt.sort()
 
+    for object in Entity.list_object_phys:
+        temporary.append(copy(object))
 
-    for yobj in (listt):
-        if yobj == home.y and :
+    for yobj in listt:
+        if yobj == home.y:
             home.be(window, keys, mouse, click)
 
-
-        for object in Entity.list_object_phys:
-            if object.y == yobj:
+        for object in temporary:
+            if int(object.y) == yobj:
                 object.be(window)
 
 

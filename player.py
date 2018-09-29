@@ -18,12 +18,11 @@ class Player(Game_object):
         self.centerp = (self.center[0] + self.x, self.center[1] + self.y)
         for object in Entity.list_object_phys:
             object.centerp = (object.center[0] + int(object.x), object.center[1] + int(object.y))
-            #print (self.centerp, object.centerp)
 
-            if (self.centerp[0] >= object.centerp[0] - object.center[0] and self.centerp[0] <= object.centerp[0] + object.center[0]) and\
-            (self.centerp[1]  > object.centerp[1] - object.center[1] and  self.centerp[1]  < object.centerp[1] + object.center[1]):
+            if (self.centerp[0] + self.center[0]  >= object.centerp[0] - object.center[0] and self.centerp[0] - self.center[0] <= object.centerp[0] + object.center[0]) and\
+            (self.centerp[1]  >= object.centerp[1] - object.center[1] and  self.centerp[1]  <= object.centerp[1] + object.center[1]):
                 return(True)
-            return(False)
+        return(False)
 
 
     def control(self, keys):
@@ -77,8 +76,6 @@ class Player(Game_object):
             self.right()
             if self.collision():
                 Movemap.left(self.speed)
-
-
 
 
 
