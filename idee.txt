@@ -1,0 +1,74 @@
+[Player]
+-x
+-y
+-hitbox
+-sprite
+-image on (up)
+-skills
+-hp
+-hp_limit
+-death() = respawn
+-control(us) = move()
+-lvl
+-speed
+-money (got)
+
+[Mob]
+-x
+-y
+-hitbox
+-control(ia) = move()
+-death()
+-skills
+-image on (up)
+-sprite
+-hp
+-hp_limit
+-lvl
+-speed
+
+[Boss]
+-x
+-y
+-hitbox
+-control(ia) = move()
+-death() = changement d'état
+-skills
+-image on (up)
+-sprite
+-hp
+-hp_limit
+-lvl
+-speed
+-animation - cinematic
+-état
+-be
+
+[Inventaire]
+-be
+-image
+-control(us) - naviguer dans l'Inventaire
+
+[HUD]
+-hp_bar (be)
+-coolddown (be)
+-money (be)
+
+
+[NPC]
+-x
+-y
+-sprite
+-image (up)
+-hitbox
+-usebox
+-text
+
+[Coffre]
+-hitbox
+-usebox
+-x
+-y
+-loot
+-sprite
+-image (up)
