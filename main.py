@@ -1,4 +1,6 @@
 from init import *
+from entity import *
+from player import *
 # Main loop
 run = True
 while run:
@@ -20,10 +22,25 @@ while run:
 
     #Controlkeys
     pygame.Surface.fill(window, (0, 0, 0))
+
+    #be
     background.be(window)
-    home.be(window, keys, mouse, click)
+    listt = []
+    for object in Entity.list_object_phys:
+        listt.append(object.y)
+
+    listt.append(home.y)
+    listt.sort()
 
 
+    for yobj in (listt):
+        if yobj == home.y and :
+            home.be(window, keys, mouse, click)
+
+
+        for object in Entity.list_object_phys:
+            if object.y == yobj:
+                object.be(window)
 
 
     #Update Display

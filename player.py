@@ -14,6 +14,16 @@ class Player(Game_object):
         self.control(keys)
         window.blit(self.imageup,(self.x, self.y))
 
+    def collision(self):
+        self.centerp = (self.center[0] + self.x, self.center[1] + self.y)
+        for object in Entity.list_object_phys:
+            object.centerp = (object.center[0] + int(object.x), object.center[1] + int(object.y))
+            #print (self.centerp, object.centerp)
+
+            if (self.centerp[0] >= object.centerp[0] - object.center[0] and self.centerp[0] <= object.centerp[0] + object.center[0]) and\
+            (self.centerp[1]  > object.centerp[1] - object.center[1] and  self.centerp[1]  < object.centerp[1] + object.center[1]):
+                return(True)
+            return(False)
 
 
     def control(self, keys):
@@ -22,34 +32,54 @@ class Player(Game_object):
             if keys[pygame.K_a]:
                 Movemap.upleft(self.speed)
                 self.upleft()
+                if self.collision():
+                    Movemap.downright(self.speed)
             elif keys[pygame.K_d]:
                 Movemap.upright(self.speed)
                 self.upright()
+                if self.collision():
+                    Movemap.downleft(self.speed)
+
             else:
                 Movemap.up(self.speed)
                 self.up()
+                if self.collision():
+                    Movemap.down(self.speed)
 
         #DOWN
         elif keys[pygame.K_s]:
             if keys[pygame.K_a]:
                 Movemap.downleft(self.speed)
                 self.downleft()
+                if self.collision():
+                    Movemap.upright(self.speed)
             elif keys[pygame.K_d]:
                 Movemap.downright(self.speed)
                 self.downright()
+                if self.collision():
+                    Movemap.upleft(self.speed)
             else:
                 Movemap.down(self.speed)
                 self.down()
+                if self.collision():
+                    Movemap.up(self.speed)
 
         #LEFT
         elif keys[pygame.K_a]:
             Movemap.left(self.speed)
             self.left()
+            if self.collision():
+                Movemap.right(self.speed)
 
         #RIGHT
         elif keys[pygame.K_d]:
             Movemap.right(self.speed)
             self.right()
+            if self.collision():
+                Movemap.left(self.speed)
+
+
+
 
 
     timer1 = 0

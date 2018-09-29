@@ -12,6 +12,7 @@ class Game_object:
         self.y = y
         self.imageup = imageup
         self.bank_image = bank_image
+        self.center = (pygame.Surface.get_width(imageup)//2,pygame.Surface.get_width(imageup)//2)
 
     def be(self, window):
         window.blit(self.imageup,(self.x, self.y))
