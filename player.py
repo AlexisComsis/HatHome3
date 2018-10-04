@@ -8,20 +8,31 @@ class Player(Game_object):
         self.speed = speed
         self.hp_limit = hp_limit
         self.hp = hp_limit
+        self.colisionside = None
+        self.centerp = None
 
 
     def be(self, window, keys, mouse, click):
         self.control(keys)
         window.blit(self.imageup,(self.x, self.y))
+        self.colisionside = None
 
     def collision(self):
         self.centerp = (self.center[0] + self.x, self.center[1] + self.y)
         for object in Entity.list_object_phys:
             object.centerp = (object.center[0] + int(object.x), object.center[1] + int(object.y))
 
-            if (self.centerp[0] + self.center[0]  >= object.centerp[0] - object.center[0] and self.centerp[0] - self.center[0] <= object.centerp[0] + object.center[0]) and\
-            (self.centerp[1]  >= object.centerp[1] - object.center[1] and  self.centerp[1]  <= object.centerp[1] + object.center[1]):
-                return(True)
+    #    if (self.centerp[0] + self.center[0]  >= object.centerp[0] - object.center[0] and self.centerp[0] - self.center[0] <= object.centerp[0] + object.center[0]) and\
+        #    (self.centerp[1]  >= object.centerp[1] - object.center[1] and  self.centerp[1]  <= object.centerp[1] + object.center[1]):
+
+            if (self.centerp[0] + self.center[0]  >= object.centerp[0] - object.center[0]):
+
+                if (self.centerp[0] - self.center[0] <= object.centerp[0] + object.center[0]):
+
+                    if (self.centerp[1]  >= object.centerp[1] - object.center[1]):
+
+                        if (self.centerp[1]  <= object.centerp[1] + object.center[1]):
+                            return(True)
         return(False)
 
 
@@ -33,6 +44,7 @@ class Player(Game_object):
                 self.upleft()
                 if self.collision():
                     Movemap.downright(self.speed)
+
             elif keys[pygame.K_d]:
                 Movemap.upright(self.speed)
                 self.upright()
