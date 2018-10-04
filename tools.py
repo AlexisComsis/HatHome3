@@ -24,10 +24,12 @@ class tools:
         img = pygame.image.load(img_path).convert_alpha()
         return img.get_height()
 
-    def load_convert(img_path, w=w0, h=h0):
+    def load_convert(img_path, mult = 1, w=w0, h=h0 ):
         img = pygame.image.load(img_path).convert_alpha()
         wc = int(img.get_width() / 1600 * w)
         hc = int(img.get_height() / 900 * h)
+        wc *= mult
+        hc *= mult
         return pygame.transform.scale(img, (wc, hc))
 
     def convert(img, w=w0, h=h0):
