@@ -22,21 +22,35 @@ class Player(Game_object):
         for object in Entity.list_object_phys:
             object.centerp = (object.center[0] + int(object.x), object.center[1] + int(object.y))
 
-    #    if (self.centerp[0] + self.center[0]  >= object.centerp[0] - object.center[0] and self.centerp[0] - self.center[0] <= object.centerp[0] + object.center[0]) and\
-        #    (self.centerp[1]  >= object.centerp[1] - object.center[1] and  self.centerp[1]  <= object.centerp[1] + object.center[1]):
+            if (self.centerp[0] + self.center[0]  >= object.centerp[0] - object.center[0] and self.centerp[0] - self.center[0] <= object.centerp[0] + object.center[0]) and\
+                (self.centerp[1]  >= object.centerp[1] - object.center[1] and  self.centerp[1]  <= object.centerp[1] + object.center[1]):
+        #[0] = x  ;  [1] = y
+                self.objectconflict = object
+                return(True)
 
-            if (self.centerp[0] + self.center[0]  >= object.centerp[0] - object.center[0]):
-
-                if (self.centerp[0] - self.center[0] <= object.centerp[0] + object.center[0]):
-
-                    if (self.centerp[1]  >= object.centerp[1] - object.center[1]):
-
-                        if (self.centerp[1]  <= object.centerp[1] + object.center[1]):
-                            return(True)
         return(False)
 
+    def strongest(self, flag1, flag2):
+
+
+        x = self.centerp[0] - self.objectconflict.centerp[0]
+        x = abs(x)
+        y = self.centerp[1] - self.objectconflict.centerp[1]
+        y = abs(y)
+
+        if y > x:
+            if flag1 == "down":
+                Movemap.down(self.speed//3)
+            else:
+                Movemap.up(self.speed//3)
+        else:
+            if flag2 == "left":
+                Movemap.left(self.speed//3)
+            else:
+                Movemap.right(self.speed//3)
 
     def control(self, keys):
+
         #UP
         if keys[pygame.K_w]:
             if keys[pygame.K_a]:
@@ -44,12 +58,14 @@ class Player(Game_object):
                 self.upleft()
                 if self.collision():
                     Movemap.downright(self.speed)
+                    ctest = self.strongest("down", "right")
 
             elif keys[pygame.K_d]:
                 Movemap.upright(self.speed)
                 self.upright()
                 if self.collision():
                     Movemap.downleft(self.speed)
+                    ctest = self.strongest("down", "left")
 
             else:
                 Movemap.up(self.speed)
@@ -64,11 +80,14 @@ class Player(Game_object):
                 self.downleft()
                 if self.collision():
                     Movemap.upright(self.speed)
+                    ctest = self.strongest("up", "right")
+
             elif keys[pygame.K_d]:
                 Movemap.downright(self.speed)
                 self.downright()
                 if self.collision():
                     Movemap.upleft(self.speed)
+                    ctest = self.strongest("up", "left")
             else:
                 Movemap.down(self.speed)
                 self.down()
